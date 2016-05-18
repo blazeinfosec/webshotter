@@ -47,7 +47,3 @@ Send a pull request if you feel like.
 ## License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
-
-=======
-# webshotter
-A very simple Python script to take screenshots of websites
