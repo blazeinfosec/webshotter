@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## webshotter
 
 A very simple Python script to take screenshots of websites. It can be
@@ -52,4 +51,3 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 =======
 # webshotter
 A very simple Python script to take screenshots of websites
->>>>>>> f8c347896e5fbe85ad2b57a2273fb9186971295c
