@@ -5,7 +5,7 @@
 #
 # by Julio Cesar Fort, Wildfire Labs /// Blaze Information Security
 #
-# Copyright 2015, Blaze Information Security
+# Copyright 2015-2016, Blaze Information Security
 # https://www.blazeinfosec.com
 
 import sys
