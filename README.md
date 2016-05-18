@@ -2,7 +2,7 @@
 
 A very simple Python script to take screenshots of websites. It can be
 handy in internal security assessments where several hosts have HTTP
-servers, so one can use it to narrow down their target to the interesting
+servers, so one can use it to narrow down his target to the interesting
 applications and weed out less interesting ones as well as default HTTP
 pages. Can also be useful for bug bounty hunters when scanning for
 applications running in obscure subdomains.
