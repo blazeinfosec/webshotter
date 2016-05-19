@@ -14,11 +14,15 @@ import os
 try:
     from selenium import webdriver, common
 except ImportError:
-    print "[!] Error importing Selenium web driver. Selenium is avaialble on Kali through apt - apt-get install python-selenium. Alternatively, it can be found using pypi (https://pypi.python.org/pypi/selenium)"
+    print("[!] Error importing Selenium web driver. Consult the README.md file for installation instructions.")
     sys.exit(-1)
 import argparse
 import threading
-import Queue
+try:
+    import Queue
+except ImportError:  # Python 3 in use Queue is now queue
+    import queue as Queue
+
 
 # define global variables
 queue = Queue.Queue()
@@ -31,7 +35,7 @@ try:
     driver = webdriver.PhantomJS()
     driver = None
 except (NameError, common.exceptions.WebDriverException):
-    print "[!] PhantomJS hasn't been detected. PhantomJS is available on Kali through apt - apt-get install phantomjs. Alternatively, it can be found using the links at http://phantomjs.org/download.html"
+    print("[!] PhantomJS has not been detected. Consult the README.md file for installation instructions.")
     exit(1)
 
 
@@ -46,10 +50,10 @@ class ThreadScreenshotter(threading.Thread):
 
         while True:
             url = self.queue.get()
-            print "Taking screenshot of " + url
+            print("Taking screenshot of " + url)
 
             if VERBOSE:
-                print self.getName() + " received argument: " + url
+                print(self.getName() + " received argument: " + url)
 
             take_screenshot(url, height, width)
             self.queue.task_done()  # notify the end of the task
@@ -78,7 +82,7 @@ def main():
         VERBOSE = True
 
     if VERBOSE:
-        print "Starting with " + str(num_threads) + " threads"
+        print("Starting with " + str(num_threads) + " threads")
     for n in range(num_threads):
         if args.height and args.width and int(args.height) > 0 and int(args.width) > 0:
             height = int(args.height)
@@ -91,7 +95,7 @@ def main():
     try:
         fd = open(url_list, "r")
     except IOError as err:
-        print "[!] Error opening URL list file: %s" % str(err)
+        print("[!] Error opening URL list file: %s" % str(err))
         sys.exit(0)
 
     urls = fd.read().splitlines()
@@ -107,10 +111,10 @@ def main():
     queue.join()  # wait for the queue to process everything
 
 
-''' Takes screenshot using PhantomJS's webdriver and saves the file on disk
-    This function gets called by the threaded screenshot class
-'''
 def take_screenshot(url, height, width):
+    ''' Takes screenshot using PhantomJS's webdriver and saves the file on disk
+    This function gets called by the threaded screenshot class
+    '''
     date_hour = get_date_hour()
     save_file = url + '-screenshot-' + date_hour + '.png'
     save_file = parse_filename(save_file)
@@ -123,13 +127,13 @@ def take_screenshot(url, height, width):
         driver.save_screenshot(save_file)
         driver.quit()
     except WebDriverException as e:
-        print "Error in PhantomJS: " + str(e)
+        print("Error in PhantomJS: " + str(e))
 
 
-''' Returns date and hour in a friendly format for the filename '''
 def get_date_hour():
+    ''' Returns date and hour in a friendly format for the filename '''
     date_hour = str(datetime.datetime.now())
-    date_hour = date_hour.replace(" ", "_").replace(":","")
+    date_hour = date_hour.replace(" ", "_").replace(":", "")
 
     # remove miliseconds
     i = date_hour.find(".")
@@ -138,8 +142,8 @@ def get_date_hour():
         return date_hour
 
 
-''' This function sanitizes the URL to a filename to be saved in the filesystem '''
 def parse_filename(url):
+    ''' This function sanitizes the URL to a filename to be saved in the filesystem '''
     return url.replace(":", "_").replace("/", "_")
 
 

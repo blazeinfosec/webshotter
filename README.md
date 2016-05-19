@@ -30,7 +30,7 @@ Thread-1 received argument: http://blog.whatever.io
 ## Dependencies
 
 This code depends on Selenium Web Driver and PhantomJS.
-Selenium is avaialble on Kali through apt - apt-get install python-selenium. Alternatively, it can be found using pypi (https://pypi.python.org/pypi/selenium)
+Selenium is avaialble on Kali through apt - apt-get install python-selenium (or python3-selenium). Alternatively, it can be found using pypi (https://pypi.python.org/pypi/selenium)
 PhantomJS is available on Kali through apt - apt-get install phantomjs. Alternatively, it can be found using the links at http://phantomjs.org/download.html.
 
 Alternatively, use the following commands:
