@@ -99,7 +99,6 @@ def main():
         sys.exit(0)
 
     urls = fd.read().splitlines()
-
     fd.close()
 
     ''' reads URLs from file and put them in a queue to be used by the threads '''
@@ -118,15 +117,24 @@ def take_screenshot(url, height, width):
     date_hour = get_date_hour()
     save_file = url + '-screenshot-' + date_hour + '.png'
     save_file = parse_filename(save_file)
+    viable_screenshot = True
 
     try:
-        driver = webdriver.PhantomJS()
+        # driver = webdriver.PhantomJS()
+        driver = webdriver.PhantomJS("phantomjs", service_args=['--ignore-ssl-errors=true'])
         if height > 0 and width > 0:
             driver.set_window_size(height, width)
-        driver.get(url)
-        driver.save_screenshot(save_file)
+        driver.implicitly_wait(2)
+        driver.set_page_load_timeout(2)
+        try:
+            driver.get(url)
+        except common.exceptions.TimeoutException as e:
+            print("Timeout on " + str(url))
+            viable_screenshot = False
+        if viable_screenshot is True:
+            driver.save_screenshot(save_file)
         driver.quit()
-    except WebDriverException as e:
+    except common.exceptions.WebDriverException as e:
         print("Error in PhantomJS: " + str(e))
 
 
