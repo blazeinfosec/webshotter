@@ -83,8 +83,8 @@ def main():
     if args.verbose:
         VERBOSE = True
     if args.location:
-	    location = str(args.location)
-        if not os.path.exists(location): #create a new dir if int's not exist
+	location = str(args.location)
+	if not os.path.exists(location): #create a new dir if int's not exist
             os.makedirs(location)
     else:
 	    location = os.getcwd()
