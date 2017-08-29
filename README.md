@@ -46,6 +46,7 @@ Nothing yet.
 ## Contributors
 
 * **Chris A** - alphaskade at gmail dot com (@alphaskade)
+* **Stanislav K** - [@stasikus](https://github.com/stasikus)
 
 Send a pull request if you feel like.
 
