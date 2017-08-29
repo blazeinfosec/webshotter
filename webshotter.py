@@ -63,6 +63,7 @@ def main():
     global VERBOSE
     global height
     global width
+    global location
 
     argparser = argparse.ArgumentParser(description='Webshotter - Create web page screenshots')
     argparser.add_argument('urllist', help='file containing a list of URLs. Screenshots will be made of each URL')    # mandatory argument
@@ -70,6 +71,7 @@ def main():
     argparser.add_argument('-y', '--width', help='width of the headless browser, and the screenshot')
     argparser.add_argument('-t', '--threads', help='number of concurrent threads (default: 1)')
     argparser.add_argument('-v', '--verbose', action='store_true', help='toggle verbose mode')
+    argparser.add_argument('-l', '--location', help='save all screenshots into a particular directory')
     args = argparser.parse_args()
 
     url_list = args.urllist
@@ -80,6 +82,15 @@ def main():
         num_threads = int(args.threads)
     if args.verbose:
         VERBOSE = True
+    if args.location:
+	location = str(args.location)
+	if not os.path.exists(location): #create a new dir if int's not exist
+            os.makedirs(location)
+    else:
+	    location = os.getcwd()
+        
+    if not location.endswith("/"):
+	    location = location+"/"
 
     if VERBOSE:
         print("Starting with " + str(num_threads) + " threads")
@@ -117,6 +128,7 @@ def take_screenshot(url, height, width):
     date_hour = get_date_hour()
     save_file = url + '-screenshot-' + date_hour + '.png'
     save_file = parse_filename(save_file)
+    save_file = str(location) + save_file
     viable_screenshot = True
 
     try:
